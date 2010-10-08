@@ -14,8 +14,10 @@
 #include "insect6.h"
 #include "insect7.h"
 #include "insect8.h"
+#include "insect9.h"  // 1
 #include "larva_survival.h"
 #include "pollen.h"
+#include "pupa_survival.h" //1
 #include "weather.h"
 
 using namespace UniSim;
@@ -35,7 +37,8 @@ QString BeehiveModelMaker::pluginDesc() const {
 QStringList BeehiveModelMaker::authors() const {
     return QStringList()
         << "Niels Holst, Aarhus University, Denmark"
-        << "Willam Meikle, USDA-ARS, Texas, USA";
+        << "Willam Meikle, USDA-ARS, Texas, USA"
+        << "Joe Cool, UC Berkeley, USA";  // 2
 }
 
 const QMap<Identifier, QString>& BeehiveModelMaker::supportedClasses() {
@@ -82,11 +85,19 @@ const QMap<Identifier, QString>& BeehiveModelMaker::supportedClasses() {
     desc["Insect8"] =
     "This model has been extended with larval survival depending on pollen supply";
 
+    desc["Insect9"] =
+    "This model has been extended with temperature-dependent pupa survival";
+
     desc["LarvaSurvival"] =
     "Larva survival depends on the supply of pollen";
 
     desc["Pollen"] =
     "Pollen is the resource for the larvae. It has logistic growth.";
+
+    desc["PupaSurvival"] =
+    "Temperature-dependent pupa survival. It is zero below T0 oC, "
+    "optimal Sopt at Topt oC, and zero above Tmax. Between T0 and Topt, "
+    "and between Topt and Tmax, survival is linearly interpolated";
 
     desc["Weather"] =
     "This model provides daily average temperature.";
@@ -118,10 +129,14 @@ Model* BeehiveModelMaker::create(Identifier modelType, Identifier objectName, QO
         model = new Insect7(objectName, parent);
     else if (modelType.equals("Insect8"))
         model = new Insect8(objectName, parent);
+    else if (modelType.equals("Insect9"))               // 5
+        model = new Insect9(objectName, parent);        // 5
     else if (modelType.equals("LarvaSurvival"))
         model = new LarvaSurvival(objectName, parent);
     else if (modelType.equals("Pollen"))
         model = new Pollen(objectName, parent);
+    else if (modelType.equals("PupaSurvival"))          // 5
+        model = new PupaSurvival(objectName, parent);   // 5
     else if (modelType.equals("Weather"))
         model = new Weather(objectName, parent);
     return model;

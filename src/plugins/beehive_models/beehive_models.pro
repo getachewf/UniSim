@@ -17,10 +17,10 @@ HEADERS += \
     insect6.h \
     insect7.h \
     insect8.h \
-#    insect9.h \
+    insect9.h \
     larva_survival.h \
 	pollen.h \
-#	pupa_survival.h \
+    pupa_survival.h \
     weather.h
 
 SOURCES += \
@@ -33,9 +33,9 @@ SOURCES += \
     insect6.cpp \
     insect7.cpp \
     insect8.cpp \
- #   insect9.cpp \
+    insect9.cpp \
     larva_survival.cpp \
 	pollen.cpp \
-#	pupa_survival.cpp \
+    pupa_survival.cpp \
     weather.cpp
 
