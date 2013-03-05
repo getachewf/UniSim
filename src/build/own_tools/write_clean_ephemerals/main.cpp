@@ -1,28 +1,48 @@
 #include "../common/common.h"
 
 void turnSlashes(QString &path) {
-    path = path.replace("/", "\\");
+     #if defined (__WIN32__)
+       path = path.replace("/", "\\");
+     #endif
 }
 
 QString cleanCmd(QDir dir, QString folderName) {
     QString folderPath = dir.absolutePath() + "/" + folderName;
     turnSlashes(folderPath);
-    return "call clean_folder " + folderPath + "\n";
+    #if defined (__WIN32__)
+       return "call clean_folder " + folderPath + "\n";
+    #else
+       return "bash clean_folder.sh " + folderPath + "\n";
+    #endif
 }
 
 QString delCmd(QDir dir, QString fileName) {
     QString filePath = dir.absolutePath() + "/" + fileName;
     turnSlashes(filePath);
-    return "if exist " + filePath +" del " + filePath + " /Q\n";
+    #if defined (__WIN32__)
+      return "if exist " + filePath +" del " + filePath + " /Q\n";
+    #else
+      return "if [ -f " + filePath +" ]; then rm -f " + filePath + "; fi \n";
+    #endif
 }
 
 int main(int argc, char *argv[])
 {
-    QString filePath = "../win/clean_ephemerals.bat";
+    //QString filePath = "../win/clean_ephemerals.bat";
+    QString filePath = "../ubuntu/clean_ephemerals.sh";
+    #if defined (__WIN32__)
+           filePath = "../win/clean_ephemerals.bat";
+    #endif
+
     openFile(filePath);
 
-    writeTimeStamp("@rem ");
-    write("@echo off\n");
+    writeTimeStamp("# ");
+    write(" \n ");
+
+    #if defined (__WIN32__)
+       writeTimeStamp("@rem ");
+       write("@echo off\n");
+    #endif
 
     write(cleanCmd(getSourceDir(), "build/own_tools/update_settings"));
     write(cleanCmd(getSourceDir(), "build/own_tools/write_clean_ephemerals"));
@@ -40,10 +60,14 @@ int main(int argc, char *argv[])
     write(delCmd(getSourceDir(), "makefile.*"));
     write(delCmd(getPluginsDir(), "makefile.*"));
 
-    write("@echo on\n");
-    write("@echo *\n");
-    write("@echo * UniSim project cleaned for all intermediate files *\n");
-    write("@echo *\n");
+    #if defined (__WIN32__)
+       write("@echo on\n");
+       write("@echo *\n");
+       write("@echo * UniSim project cleaned for all intermediate files *\n");
+       write("@echo *\n");
+   #else
+      write(" echo \"* UniSim project cleaned for all intermediate files * \" \n");
+    #endif
 
     closeFile();
     return 0;

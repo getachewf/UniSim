@@ -18,6 +18,7 @@ bash copy_authors.sh
 
 #Erase all exe and dll targets
 bash clean_targets.sh
+
 bash clean_build_desktops.sh
 
 #Make own tools
@@ -42,8 +43,9 @@ popd
 ../own_tools/write_plugins_project_app
 
 #Clean build folders
-bash clean_ephemerals.sh  
-bash clean_folder.sh #done but not as function
+bash clean_ephemerals.sh   
+bash clean_folder.sh ../../library/usbase/
+bash clean_folder.sh ../../library/usengine/
 
 #Build Unisim
 pushd ../..
@@ -59,8 +61,10 @@ echo "."
 echo "***Finished make***"
 echo "."
 
-bash clean_ephemerals.sh  #or .bat file under win folder?
-bash clean_folder.sh #done not as function
+bash clean_ephemerals.sh  
+bash clean_folder.sh ../../library/usengine/
+bash clean_folder.sh ../../library/usengine/
+
 echo "."
 echo "***Finished build***"
 echo "."

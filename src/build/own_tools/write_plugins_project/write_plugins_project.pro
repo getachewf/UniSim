@@ -1,5 +1,5 @@
 DESTDIR = ..
-TARGET = write_plugins_project
+TARGET = write_plugins_project_app
 TEMPLATE = app
 
 QT       -= gui

@@ -1,5 +1,5 @@
 DESTDIR = ..
-TARGET = write_clean_ephemerals
+TARGET = write_clean_ephemerals_app
 TEMPLATE = app
 
 QT       -= gui

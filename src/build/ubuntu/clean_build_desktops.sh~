@@ -26,7 +26,7 @@ do
   rm -Rf $D 
 done
 
-for D in ../../plugins/*/moc_*.*
+for D in ../../plugins/*/*.o
 do 
   rm -Rf $D 
 done

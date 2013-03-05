@@ -1,4 +1,7 @@
 #!/bin/bash
-cp ../../library/*.so .
-cp ../../../vendor/gsl/bin/*.so .
-cp ../../../vendor/qwt/lib/*.so .
+set +v
+sudo cp ../../library/*.so.* /usr/lib/
+sudo cp /home/getachew/dev/qwt-6.1-rc3/lib/*.so.* /usr/lib/
+#sudo cp ../../../vendor/gsl/bin/*.so.* /usr/lib/
+
+
